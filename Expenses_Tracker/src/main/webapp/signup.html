@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration & OTP Verification</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin-top: 10px;
+            hight:150px;
+            
+        }
+
+        h2 {
+            color: #3F51B5;
+            margin: 10px 0;
+            
+        }
+
+        form {
+        border-radius:8px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px black;
+            width: 400px;
+            margin: 10px;
+            transition: transform 0.3s ease-in-out;
+            
+        }
+
+        
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 18px;
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: #3F51B5;
+        }
+
+        input[type="submit"] {
+            background-color: #3F51B5;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #303F9F;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: -8px;
+        }
+
+        .already-registered {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .already-registered a {
+            color: #3F51B5;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .already-registered a:hover {
+            color: #303F9F;
+        }
+    </style>
+</head>
+<body>
+   
+    <form id="registrationForm" action="register.jsp" method="post" onsubmit="return validateForm()" > 
+   <center><h2>Registration</h2></center> 
+        <label for="firstName">Name:<sup style="color:red;">*</sup></label>
+        <input type="text" id="name" name="name" placeholder="Name" required>
+
+        <label for="phoneNumber">Phone Number:<sup style="color:red;">*</sup></label>
+        <input type="tel" id="phoneno" name="phoneno" pattern="[0-9]{10}" placeholder="Phone No" required>
+        <div class="error" id="mobileError"></div>
+        
+        <label for="email">Email:<sup style="color:red;">*</sup></label>
+        <input type="email" id="email" name="email" placeholder="Email">
+        
+        <label for="password">Password:<sup style="color:red;">*</sup></label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <div class="error" id="passwordError"></div>
+       
+        <input type="submit" value="Submit">
+        
+        <div class="already-registered">
+            <p><b>Already registered?</b> <a href="login.html">Login</a></p>
+        </div>
+    </form>
+    
+    <script>
+        function validateForm() {
+            var email = document.getElementById('email').value;
+            var mobile = document.getElementById('phoneNumber').value;
+            var password = document.getElementById('password').value;
+            var isValid = true;
+
+            // Email validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').innerHTML = 'Invalid email address';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').innerHTML = '';
+            }
+
+            // Mobile number validation
+            var mobileRegex = /^[0-9]{10}$/;
+            if (!mobileRegex.test(mobile)) {
+                document.getElementById('mobileError').innerHTML = 'Invalid mobile number (10 digits required)';
+                isValid = false;
+            } else {
+                document.getElementById('mobileError').innerHTML = '';
+            }
+
+            // Password validation
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                document.getElementById('passwordError').innerHTML = 'Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').innerHTML = '';
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
