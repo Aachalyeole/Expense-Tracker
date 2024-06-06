@@ -2,6 +2,15 @@ CREATE DATABASE expense_tracker;
 
 USE expense_tracker;
 
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    phoneno BIGINT(10) NOT NULL UNIQUE,
+    email VARCHAR(40) NOT NULL UNIQUE,
+    password VARCHAR(20) NOT NULL,
+   
+);
+
 CREATE TABLE Expenses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category VARCHAR(255) NOT NULL,
